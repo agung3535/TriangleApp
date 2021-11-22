@@ -48,6 +48,10 @@ class TriangleAppTests: XCTestCase {
         XCTAssertEqual(try detectTriangle(1, 2, 3), "Segitiga Sembarang")
     }
     
+    func testDetectPythagorasTriangle() {
+      XCTAssertEqual(try detectTriangle(6, 8, 10), "Segitiga Siku-Siku")
+    }
+    
     func detectTriangle(
         _ sideA: Int,
         _ sideB: Int,
@@ -61,14 +65,17 @@ class TriangleAppTests: XCTestCase {
             
         }
         
-        if sides[0] == sides[1] && sides[0] == sides[2] {
+        if sides[1] + sides[0] <= sides[2] {
+            throw TriangleError.inequalityInput
+          } else if sides[0] == sides[1] && sides[0] == sides[2] {
             return "Segitiga Sama Sisi"
-        } else if sides[0] == sides[1] || sides[1] == sides[2] {
+          } else if sides[0] == sides[1] || sides[1] == sides[2] {
             return "Segitiga Sama Kaki"
-        }
-        else {
+          } else if Double((sides[0] * sides[0] + sides[1] * sides[1])).squareRoot() == Double(sides[2]) {
+            return "Segitiga Siku-Siku"
+          } else {
             return "Segitiga Sembarang"
-        }
+          }
         
     }
 
@@ -76,4 +83,5 @@ class TriangleAppTests: XCTestCase {
 
 enum TriangleError: Error {
     case invalidInput
+    case inequalityInput
 }
