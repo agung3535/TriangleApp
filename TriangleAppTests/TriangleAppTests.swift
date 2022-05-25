@@ -45,7 +45,7 @@ class TriangleAppTests: XCTestCase {
     }
     
     func testRandomTriangle() {
-        XCTAssertEqual(try detectTriangle(1, 2, 3), "Segitiga Sembarang")
+        XCTAssertEqual(try detectTriangle(3, 5, 7), "Segitiga Sembarang")
     }
     
     func testDetectPythagorasTriangle() {
@@ -66,6 +66,7 @@ class TriangleAppTests: XCTestCase {
         }
         
         if sides[1] + sides[0] <= sides[2] {
+            print("nilai = \(sides[1] + sides[0]) dan \(sides[2])")
             throw TriangleError.inequalityInput
           } else if sides[0] == sides[1] && sides[0] == sides[2] {
             return "Segitiga Sama Sisi"
